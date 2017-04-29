@@ -31,11 +31,8 @@ public class OrderBean implements Serializable{
 				new BigDecimal("100.00"), 10)
 	};
 
-	/*public Order[] getOrderList() {
-
-		return orderList;
-
-	}*/
+	/*public Order[] getOrderList() {return orderList;}*/
+        
         private DataModel<Order> order = new ArrayDataModel<Order>(orderList);
 
 	public DataModel<Order> getOrderList() {
@@ -43,55 +40,77 @@ public class OrderBean implements Serializable{
 		return order;
 
 	}
+        public String saveAction() {
+		//get all existing value but set "editable" to false
+		for (Order order : orderList){order.setEditable(false);}
+		//return to current page
+		return null;
+        }
+        
+        public String editAction(Order order) {
+
+            order.setEditable(true);
+            return null;
+        }
 
 	public static class Order{
+            
+            BigDecimal price;
+            boolean editable;
+            int qty;
+            String orderNo;
+            String productName;
 
-		String orderNo;
-		String productName;
+            public String getOrderNo() {
+                return orderNo;
+            }
 
-        public String getOrderNo() {
-            return orderNo;
-        }
+            public void setOrderNo(String orderNo) {
+                this.orderNo = orderNo;
+            }
 
-        public void setOrderNo(String orderNo) {
-            this.orderNo = orderNo;
-        }
+            public String getProductName() {
+                return productName;
+            }
 
-        public String getProductName() {
-            return productName;
-        }
+            public void setProductName(String productName) {
+                this.productName = productName;
+            }
 
-        public void setProductName(String productName) {
-            this.productName = productName;
-        }
+            public BigDecimal getPrice() {
+                return price;
+            }
 
-        public BigDecimal getPrice() {
-            return price;
-        }
+            public void setPrice(BigDecimal price) {
+                this.price = price;
+            }
 
-        public void setPrice(BigDecimal price) {
-            this.price = price;
-        }
+            public int getQty() {
+                return qty;
+            }
 
-        public int getQty() {
-            return qty;
-        }
+            public boolean isEditable() {
+                    return editable;
+            }
+            public void setEditable(boolean editable) {
+                    this.editable = editable;
+            }
+            public boolean getEditable() {
+                return editable;
+            }
+            public void setQty(int qty) {
+                this.qty = qty;
+            }
 
-        public void setQty(int qty) {
-            this.qty = qty;
-        }
-		BigDecimal price;
-		int qty;
 
-		public Order(String orderNo, String productName,
-                                BigDecimal price, int qty) {
+            public Order(String orderNo, String productName,
+                            BigDecimal price, int qty) {
 
-			this.orderNo = orderNo;
-			this.productName = productName;
-			this.price = price;
-			this.qty = qty;
-		}
+                    this.orderNo = orderNo;
+                    this.productName = productName;
+                    this.price = price;
+                    this.qty = qty;
+            }
 
-		//getter and setter methods
 	}
 }
