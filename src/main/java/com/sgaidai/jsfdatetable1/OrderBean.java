@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
 
 //http://localhost:8080/JavaServerFaces/default.xhtml
 
@@ -29,9 +31,16 @@ public class OrderBean implements Serializable{
 				new BigDecimal("100.00"), 10)
 	};
 
-	public Order[] getOrderList() {
+	/*public Order[] getOrderList() {
 
 		return orderList;
+
+	}*/
+        private DataModel<Order> order = new ArrayDataModel<Order>(orderList);
+
+	public DataModel<Order> getOrderList() {
+
+		return order;
 
 	}
 
