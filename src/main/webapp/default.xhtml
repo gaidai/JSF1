@@ -20,11 +20,13 @@
             <!-- <h:column>
                 display currently selected row number
                 <f:facet name="header">No</f:facet>
-                #{o.indexOf()}
+                #{order.indexOf(o)}
             </h:column> -->
                     
             <h:column>
-                <f:facet name="header">Order No</f:facet>
+                <f:facet name="header">
+    		<h:commandLink action="#{order.sortByOrderNo}">Order No</h:commandLink>
+    		</f:facet>
     		<h:inputText value="#{o.orderNo}" size="10" rendered="#{o.editable}" />
     		<h:outputText value="#{o.orderNo}" rendered="#{not o.editable}" />
     	    </h:column>
