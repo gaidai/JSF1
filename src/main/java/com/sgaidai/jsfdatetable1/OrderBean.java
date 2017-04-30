@@ -4,6 +4,8 @@ package com.sgaidai.jsfdatetable1;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.ArrayDataModel;
@@ -14,30 +16,52 @@ import javax.faces.model.DataModel;
 @ManagedBean(name="order")
 @SessionScoped
 public class OrderBean implements Serializable{
+            BigDecimal price;
+            boolean editable;
+            int qty;
+            String orderNo;
+            String productName;
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Order[] orderList = new Order[] {
+	private  ArrayList<Order> orderList =
+		new ArrayList<Order>(Arrays.asList(
 
-		new Order("A0001", "Intel CPU",
-				new BigDecimal("700.00"), 1),
-		new Order("A0002", "Harddisk 1000TB",
-				new BigDecimal("500.00"), 2),
-		new Order("A0003", "Dell Laptop",
-				new BigDecimal("11600.00"), 8),
-		new Order("A0004", "Samsung LCD",
-				new BigDecimal("5200.00"), 3),
-		new Order("A0005", "A4Tech Mouse",
-				new BigDecimal("100.00"), 10)
-	};
+		new Order("A0001", "Intel CPU",new BigDecimal("700.00"), 1),
+		new Order("A0002", "Harddisk 10TB",new BigDecimal("500.00"), 2),
+		new Order("A0003", "Dell Laptop",new BigDecimal("11600.00"), 8),
+		new Order("A0004", "Samsung LCD",new BigDecimal("5200.00"), 3),
+		new Order("A0005", "A4Tech Mouse",new BigDecimal("100.00"), 10)
+	));
+    public BigDecimal getPrice() {
+        return price;
+    }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+    public int getQty() {
+        return qty;
+    }
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+    public String getOrderNo() {
+        return orderNo;
+    }
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    
+	  
+	public ArrayList<Order> getOrderList() {
 
-	/*public Order[] getOrderList() {return orderList;}*/
-        
-        private DataModel<Order> order = new ArrayDataModel<Order>(orderList);
-
-	public DataModel<Order> getOrderList() {
-
-		return order;
+		return orderList;
 
 	}
         public String saveAction() {
@@ -45,6 +69,7 @@ public class OrderBean implements Serializable{
 		for (Order order : orderList){order.setEditable(false);}
 		//return to current page
 		return null;
+                
         }
         
         public String editAction(Order order) {
@@ -52,6 +77,17 @@ public class OrderBean implements Serializable{
             order.setEditable(true);
             return null;
         }
+        public String addAction() {
+
+            Order order = new Order(this.orderNo, this.productName, this.price, this.qty);
+            orderList.add(order);
+            return null;
+        }
+        public String deleteAction(Order order) {
+
+            orderList.remove(order);
+            return null;
+	}
 
 	public static class Order{
             

@@ -17,11 +17,11 @@
                 styleClass="order-table"
                 headerClass="order-table-header"
                 rowClasses="order-table-odd-row,order-table-even-row">
-            <h:column>
-                <!-- display currently selected row number -->
+            <!-- <h:column>
+                display currently selected row number
                 <f:facet name="header">No</f:facet>
-                #{order.orderList.getRowIndex() + 1}
-            </h:column>
+                #{o.indexOf()}
+            </h:column> -->
                     
             <h:column>
                 <f:facet name="header">Order No</f:facet>
@@ -51,9 +51,38 @@
     		<f:facet name="header">Action</f:facet>
     		<h:commandLink value="Edit" action="#{order.editAction(o)}"  rendered="#{not o.editable}" />
     	    </h:column>
+                
+            <h:column>
+    		<f:facet name="header">Action</f:facet>
+                <h:commandLink value="Delete"  action="#{order.deleteAction(o)}" />
+            </h:column>
+        </h:dataTable>
         
-    	</h:dataTable>
+        
+            
         <h:commandButton value="Save Changes" action="#{order.saveAction}" />
+        
+        <h2>Enter Order</h2>
+    	<table>
+            <tr>
+                <td>Order No :</td>
+                <td><h:inputText size="10" value="#{order.orderNo}" /></td>
+            </tr>
+            <tr>
+                <td>Product Name :</td>
+                <td><h:inputText size="20" value="#{order.productName}" /></td>
+            </tr>
+            <tr>
+                <td>Quantity :</td>
+                <td><h:inputText size="5" value="#{order.price}" /></td>
+            </tr>
+            <tr>
+                <td>Price :</td>
+                <td><h:inputText size="10" value="#{order.qty}" /></td>
+            </tr>
+    	</table>
+
+    		<h:commandButton value="Add" action="#{order.addAction}" />
         </h:form>
     </h:body>
 </html>
